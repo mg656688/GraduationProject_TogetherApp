@@ -5,10 +5,12 @@ class UserModel {
   String avatarUrl;
   List  following;
   List  followers;
+  int followingCount;
+  int followerCount;
+  int postCount;
   List  achievements;
   String bio;
   List  plants;
-
 
 
 
@@ -21,7 +23,10 @@ class UserModel {
         required this.followers,
         required this.achievements,
         required this.bio,
-        required this.plants});
+        required this.plants,
+        required this.followerCount,
+        required this.followingCount,
+        required this.postCount});
 
   factory UserModel.fromFirebaseUser(Map<String, dynamic> data) {
     return UserModel(
@@ -33,7 +38,10 @@ class UserModel {
         followers:data['followers'] ?? [],
         achievements: data['achievements'] ?? [],
         bio: data['bio'] ?? '',
-        plants:data['plants'] ?? []);
+        plants:data['plants'] ?? [],
+        followerCount: data['followerCount'] ?? 0,
+        followingCount: data['followingCount'] ?? 0,
+        postCount: data['postCount'] ?? 0);
   }
 
   Map<String, dynamic> toJson() => {
@@ -45,6 +53,9 @@ class UserModel {
     'followers': followers,
     'achievements':achievements,
     'bio': bio,
+    'postCount' : postCount,
+    'followingCount': followingCount,
+    'followerCount': followerCount,
     'plants': plants,
   };
 }

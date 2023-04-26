@@ -62,7 +62,7 @@ abstract class FlutterFlowTheme {
     'Poppins',
     color: primaryText,
     fontWeight: FontWeight.w600,
-    fontSize: 18,
+    fontSize: 16,
   );
   TextStyle get subtitle2 => GoogleFonts.getFont(
     'Poppins',
@@ -86,6 +86,12 @@ abstract class FlutterFlowTheme {
     'Poppins',
     color: primaryText,
     fontWeight: FontWeight.w500,
+    fontSize: 14,
+  );
+  TextStyle get bodyLight => GoogleFonts.getFont(
+    'Poppins',
+    color: primaryText,
+    fontWeight: FontWeight.normal,
     fontSize: 14,
   );
 

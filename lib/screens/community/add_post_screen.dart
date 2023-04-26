@@ -8,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:project_x/const/constant.dart';
 import 'package:project_x/flutter_flow/flutter_flow_icon_button.dart';
 import 'package:project_x/flutter_flow/flutter_flow_theme.dart';
+import 'package:project_x/models/user_model.dart';
 import '../../flutter_flow/flutter_flow_util.dart';
 import '../../widgets/PhotoPickerWidget.dart';
 import '../../widgets/custom_bottom_nav_bar.dart';
@@ -134,6 +135,17 @@ class _addPostScreenState extends State<addPostScreen> {
         imageUrl = downloadUrl.toString();
       }
       if (content.isNotEmpty) {
+        // Retrieve the UserModel object of the current user from Firebase Firestore
+        final userDoc = await _firestore.collection('users').doc(user.uid).get();
+        final userData = userDoc.data();
+        final userModel = UserModel.fromFirebaseUser(userData!);
+
+        // Increment the postCount property of the UserModel object by one
+        userModel.postCount++;
+
+        // Update the Firebase Firestore document for the user with the updated UserModel object
+        await _firestore.collection('users').doc(user.uid).update(userModel.toJson());
+
 
         _firestore.collection('posts').add({
           'id': postRef.id,

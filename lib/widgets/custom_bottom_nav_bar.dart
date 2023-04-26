@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:project_x/screens/community/add_post_screen.dart';
 import 'package:project_x/screens/community/community_screen.dart';
-import 'package:project_x/screens/planting_guide_screen.dart';
+import 'package:project_x/screens/plantingGuide/planting_guide_screen.dart';
 import 'package:project_x/screens/profile_screen.dart';
 
 import '../screens/pollution_report_screen.dart';

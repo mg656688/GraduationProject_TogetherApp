@@ -12,21 +12,27 @@ Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-  FirebaseAuth.instance.authStateChanges().listen((User? user) {
+  FirebaseAuth.instance.authStateChanges().listen((User? user) async {
     if (user != null) {
-      // Save user data to Firestore
-      FirebaseFirestore.instance.collection('users').doc(user.uid).set({
-        'id': user.uid,
-        'name': user.displayName,
-        'email': user.email,
-        'avatarUrl': user.photoURL,
-        'following': [],
-        'followers': [],
-        'achievements':[],
-        'plants': [],
-        'bio' : [],
-
-      }, SetOptions(merge: true));
+      final doc = FirebaseFirestore.instance.collection('users').doc(user.uid);
+      final docSnapshot = await doc.get();
+      if (!docSnapshot.exists) {
+        // Save user data to Firestore if the user is new
+        await doc.set({
+          'id': user.uid,
+          'name': user.displayName,
+          'email': user.email,
+          'avatarUrl': user.photoURL,
+          'following': [],
+          'followers': [],
+          'achievements':[],
+          'plants': [],
+          'bio' : '',
+          'followerCount': 0,
+          'followingCount' : 0,
+          'postCount': 0,
+        }, SetOptions(merge: true));
+      }
     }
   });
   runApp(MyApp());
