@@ -1,4 +1,4 @@
-# project_x
+# Together App
 
 A new Flutter project.
 
