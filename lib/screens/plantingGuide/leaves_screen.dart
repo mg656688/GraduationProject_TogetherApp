@@ -6,7 +6,9 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart';
 import 'package:mongo_dart/mongo_dart.dart' as mongo;
+import 'package:project_x/screens/plantingGuide/leaves_info_screen.dart';
 import 'package:project_x/screens/plantingGuide/planting_guide_screen.dart';
+import 'package:project_x/widgets/custom_bottom_nav_bar.dart';
 import '../../flutter_flow/flutter_flow_icon_button.dart';
 import '../../flutter_flow/flutter_flow_theme.dart';
 import '../../flutter_flow/flutter_flow_util.dart';
@@ -117,7 +119,7 @@ class _leavesState extends State<leaves> {
             Navigator.pushReplacement(
                 context,
                 PageTransition(
-                    child:  plantingGuideScreen(),
+                    child:  customNavBar(selectedIndex: 1),
                     type: PageTransitionType.bottomToTop));
           },
         ),
@@ -219,22 +221,45 @@ class _leavesState extends State<leaves> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(120,0, 0, 2),
+                    padding: const EdgeInsetsDirectional.symmetric(horizontal: 94),
                     child: prediction == ''
-                        ? const Center(
-                    )
+                        ? const Center()
                         : Visibility(
                       visible: prediction != null,
-                      child: Center(
-                        child: Text(
-                          textAlign: TextAlign.center, // center align the text
-                          prediction,
-                          style: const TextStyle(
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
+                      child: Column(
+                        children: [
+                          Center(
+                            child: Text(
+                              prediction,
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                              ),
+                            ),
                           ),
-                        ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                minimumSize: const Size(150, 40),
+                                backgroundColor: FlutterFlowTheme.of(context).primaryColor,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                              ),
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => leavesInfoScreen(prediction)),
+                                );
+                              },
+                              child: const Text('Learn More'),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -256,8 +281,8 @@ class _leavesState extends State<leaves> {
     if (kDebugMode) {
       print(length);
     }
-
-    var uri = Uri.parse('http://ec2-3-217-210-251.compute-1.amazonaws.com:9874/leaves');
+   //http://ec2-3-217-210-251.compute-1.amazonaws.com:9874/leaves
+    var uri = Uri.parse('http://192.168.1.2:9874/leaves');
     if (kDebugMode) {
       print("connection established.");
     }

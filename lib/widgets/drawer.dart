@@ -1,8 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:project_x/flutter_flow/flutter_flow_util.dart';
-import 'package:project_x/screens/profile_screen.dart';
 import 'package:project_x/screens/sign_in_screen.dart';
 
 class customDrawer extends StatefulWidget {
@@ -34,17 +32,6 @@ class _customDrawerState extends State<customDrawer> {
                 style: const TextStyle(fontSize: 40.0),
               ),
             ),
-          ),
-          ListTile(
-            leading: const Icon(Icons.person),
-            title: const Text('Profile'),
-            onTap: () {
-              Navigator.pushReplacement(
-                  context,
-                  PageTransition(
-                      child: profileScreen(),
-                      type: PageTransitionType.bottomToTop));
-            },
           ),
           ListTile(
             leading: const Icon(Icons.settings),

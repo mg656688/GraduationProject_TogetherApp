@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:project_x/flutter_flow/flutter_flow_icon_button.dart';
+import 'package:project_x/flutter_flow/flutter_flow_util.dart';
+import 'package:project_x/screens/plantingGuide/flowers_info_screen.dart';
+import 'package:project_x/screens/plantingGuide/flowers_screen.dart';
+import 'package:project_x/screens/plantingGuide/planting_guide_screen.dart';
+import 'package:project_x/widgets/custom_bottom_nav_bar.dart';
 import 'package:project_x/widgets/plant_card.dart';
+
+import '../../flutter_flow/flutter_flow_theme.dart';
 
 class MyGardenPage extends StatelessWidget {
   final String userId;
@@ -11,8 +19,48 @@ class MyGardenPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('My Garden'),
-        centerTitle: true,
+        backgroundColor: FlutterFlowTheme
+            .of(context)
+            .primaryBtnText,
+        automaticallyImplyLeading: false,
+        leading: FlutterFlowIconButton(
+          borderColor: Colors.transparent,
+          borderRadius: 30,
+          borderWidth: 1,
+          buttonSize: 60,
+          fillColor: FlutterFlowTheme
+              .of(context)
+              .primaryBackground,
+          icon: const Icon(
+            Icons.arrow_back_rounded,
+            color: Colors.black,
+            size: 30,
+          ),
+          onPressed: () {
+            Navigator.pushReplacement(
+                context,
+                PageTransition(
+                    child: const customNavBar(selectedIndex: 1),
+                    type: PageTransitionType.bottomToTop));
+          },
+        ),
+        title: Padding(
+          padding: const EdgeInsetsDirectional.fromSTEB(0, 3, 0, 0),
+          child: Text(
+            'My Garden',
+            style: FlutterFlowTheme
+                .of(context)
+                .title2
+                .override(
+              fontFamily: 'Poppins',
+              color: Colors.black,
+              fontSize: 22,
+            ),
+          ),
+        ),
+        actions: const [],
+        centerTitle: false,
+        elevation: 2,
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
@@ -24,15 +72,15 @@ class MyGardenPage extends StatelessWidget {
           if (snapshot.hasError) {
             return Text('Something went wrong');
           }
-
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
           }
-
           if (snapshot.data!.docs.isEmpty) {
-            return Center(child: Text('Your garden is empty.'));
+            return Center(child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
+              child: Text('Your garden is Empty'),
+            ));
           }
-
           return GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
@@ -41,10 +89,20 @@ class MyGardenPage extends StatelessWidget {
             itemCount: snapshot.data!.docs.length,
             itemBuilder: (BuildContext context, int index) {
               final plant = snapshot.data!.docs[index].data() as Map<String, dynamic>;
-              print(plant);
-              return PlantCard(
-                name: plant['name']?? '',
-                imageUrl: plant['imageUrl'] ?? 'https://images.pexels.com/photos/2845269/pexels-photo-2845269.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+              return Center(
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.pushReplacement(
+                        context,
+                        PageTransition(
+                            child: flowerInfoScreen(plant['name']),
+                            type: PageTransitionType.bottomToTop));
+                  },
+                  child: PlantCard(
+                    name: plant['name'] ?? 'not found',
+                    imageUrl: plant['imageUrl'] ?? '',
+                  ),
+                ),
               );
             },
           );

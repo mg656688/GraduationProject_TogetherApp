@@ -67,7 +67,7 @@ class _profileScreenState extends State<profileScreen>  with SingleTickerProvide
                       Navigator.pushReplacement(
                           context,
                           PageTransition(
-                              child: customNavBar(), type: PageTransitionType.bottomToTop));},),
+                              child: customNavBar(selectedIndex: 0), type: PageTransitionType.bottomToTop));},),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 15.0),

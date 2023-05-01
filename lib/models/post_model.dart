@@ -1,9 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project_x/models/user_model.dart';
 
-final _firestore = FirebaseFirestore.instance;
-
 class Post {
+
+  List<String> comments;
+  String content;
+  String Id;
+  String imageUrl;
+  int likes;
+  final DateTime timestamp;
+  UserModel user;
+  Set<String> likedBy;
+
   Post({
     required this.Id,
     required this.content,
@@ -29,15 +37,6 @@ class Post {
       likedBy: Set<String>.from(data['likedBy'] ?? []),
     );
   }
-
-  List<String> comments;
-  String content;
-  String Id;
-  String imageUrl;
-  int likes;
-  final DateTime timestamp;
-  UserModel user;
-  Set<String> likedBy;
 
   Map<String, dynamic> toJson() => {
     'id': Id,

@@ -10,6 +10,7 @@ import 'package:project_x/screens/plantingGuide/my_garden_screen.dart';
 import 'package:project_x/widgets/planting_guide_card.dart';
 
 import '../../main.dart';
+import '../../widgets/custom_bottom_nav_bar.dart';
 
 class plantingGuideScreen extends StatefulWidget {
   const plantingGuideScreen({super.key});
@@ -29,16 +30,13 @@ class _plantingGuideScreenState extends State<plantingGuideScreen> {
     super.dispose();
   }
 
+
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery
-        .of(context)
-        .size;
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: FlutterFlowTheme
-          .of(context)
-          .primaryBackground,
+      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(48, 64, 34, 100),
         automaticallyImplyLeading: false,
@@ -65,66 +63,6 @@ class _plantingGuideScreenState extends State<plantingGuideScreen> {
           onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
           child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.only(right: 230, top: 10),
-                child: Text(
-                  "My Garden",
-                  style: FlutterFlowTheme
-                      .of(context)
-                      .title2
-                      .override(
-                    fontFamily: 'Poppins',
-                    color: Colors.black,
-                    fontSize: 22,
-                  ),
-                ),
-              ),
-          //     Card(
-          //       child: ListTile(
-          //         leading: Image.network('https://images.pexels.com/photos/7663957/pexels-photo-7663957.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'),
-          //         title: Text('Go To Garden')
-          //       ),
-          //     ),
-              GestureDetector(
-                  onTap: () {
-                    Navigator.pushReplacement(
-                        context,
-                        PageTransition(
-                            child: MyGardenPage(userId: user!.uid),
-                            type: PageTransitionType.bottomToTop));
-                  },
-                  child:           Container(
-                    margin: const EdgeInsets.only
-                      (left: kDefaultPadding/2,
-                      top: kDefaultPadding/3,
-                      bottom: kDefaultPadding*0.4,
-                      right: kDefaultPadding/2,
-
-                    ),
-                    width: 200,
-                    child: Column(
-                      children: [
-                        Image.asset('assets/images/garden.jpeg'),
-                        GestureDetector(
-                          onTap:(){
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.all(kDefaultPadding/2),
-                            decoration:  BoxDecoration(
-                              borderRadius: const BorderRadius.only(
-                                bottomLeft: Radius.circular(10),bottomRight:  Radius.circular(10),
-                              ),
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(offset: const Offset(0,10),blurRadius: 50,color: kPrimaryColor.withOpacity(0.3)),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-              ),
               Expanded(
                 child: ListView(
                   shrinkWrap: true,
@@ -133,7 +71,33 @@ class _plantingGuideScreenState extends State<plantingGuideScreen> {
                     Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        SizedBox(height: 20,),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pushReplacement(
+                                context,
+                                PageTransition(
+                                    child: MyGardenPage(userId: user!.uid),
+                                    type: PageTransitionType.bottomToTop));
+                          },
+                          child: PlantingGuideCard(size: size * 2.5,
+                            plantName: 'My Garden\n',
+                            sub: 'Check your Plants',
+                            image: 'assets/images/garden.png',)
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 135, top: 10, bottom: 10),
+                          child: Text(
+                            "Identify your plant ?",
+                            style: FlutterFlowTheme
+                                .of(context)
+                                .title2
+                                .override(
+                              fontFamily: 'Poppins',
+                              color: Colors.black,
+                              fontSize: 22,
+                            ),
+                          ),
+                        ),
                         GestureDetector(
                             onTap: () {
                               Navigator.pushReplacement(
@@ -145,9 +109,8 @@ class _plantingGuideScreenState extends State<plantingGuideScreen> {
                             child: PlantingGuideCard(size: size * 2.5,
                               plantName: 'Flowers\n',
                               sub: 'Just scan your flowers !',
-                              image: 'assets/images/img_flower.png',)),
-
-
+                              image: 'assets/images/img_flower.png',)
+                        ),
                         GestureDetector(
                             onTap: () {
                               Navigator.pushReplacement(
@@ -159,8 +122,8 @@ class _plantingGuideScreenState extends State<plantingGuideScreen> {
                             child: PlantingGuideCard(size: size * 2.5,
                               plantName: 'Leaves\n',
                               sub: 'Identify your plants from its leaves !',
-                              image: 'assets/images/img_leave.png',)),
-
+                              image: 'assets/images/img_leave.png',)
+                        ),
                       ],
                     ),
                   ],

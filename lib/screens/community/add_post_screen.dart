@@ -166,7 +166,7 @@ class _addPostScreenState extends State<addPostScreen> {
       Navigator.pushReplacement(
           context,
           PageTransition(
-              child: customNavBar(), type: PageTransitionType.bottomToTop));
+              child: customNavBar(selectedIndex: 0), type: PageTransitionType.bottomToTop));
     }
   }
 
@@ -192,7 +192,7 @@ class _addPostScreenState extends State<addPostScreen> {
                 Navigator.pushReplacement(
                   context,
                   PageTransition(
-                      child: customNavBar(), type: PageTransitionType.bottomToTop));},),
+                      child: customNavBar(selectedIndex: 0), type: PageTransitionType.bottomToTop));},),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 15.0),

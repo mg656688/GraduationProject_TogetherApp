@@ -10,6 +10,7 @@ import 'package:project_x/flutter_flow/flutter_flow_icon_button.dart';
 import 'package:project_x/flutter_flow/flutter_flow_theme.dart';
 import 'package:project_x/screens/plantingGuide/flowers_info_screen.dart';
 import 'package:project_x/screens/plantingGuide/planting_guide_screen.dart';
+import 'package:project_x/widgets/custom_bottom_nav_bar.dart';
 
 
 class flowers extends StatefulWidget {
@@ -46,7 +47,7 @@ class _flowersState extends State<flowers> {
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
             title: const Text('Please choose media to select'),
             content: SizedBox(
-              height: MediaQuery.of(context).size.height / 3,
+              height: MediaQuery.of(context).size.height / 6,
               child: Column(
                 children: [
                   ElevatedButton(
@@ -118,7 +119,7 @@ class _flowersState extends State<flowers> {
             Navigator.pushReplacement(
                 context,
                 PageTransition(
-                    child:  const plantingGuideScreen(),
+                    child: customNavBar(selectedIndex: 1),
                     type: PageTransitionType.bottomToTop));
           },
         ),
@@ -174,7 +175,7 @@ class _flowersState extends State<flowers> {
               ),
             )
                 : const Text(
-              "Select Image",
+              "",
               style: TextStyle(fontSize: 20),
             ),
             Row(
@@ -250,7 +251,7 @@ class _flowersState extends State<flowers> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => AddToGardenPage(prediction)),
+                                    builder: (context) => flowerInfoScreen(prediction)),
                               );
                             },
                             child: const Text('Learn More'),
@@ -266,8 +267,7 @@ class _flowersState extends State<flowers> {
       ),
     );
   }
-  uploadImageToServer(XFile imageFile)async
-  {
+  uploadImageToServer(XFile imageFile)async {
     if (kDebugMode) {
       print("attempting to connect to server......");
     }
@@ -276,8 +276,8 @@ class _flowersState extends State<flowers> {
     if (kDebugMode) {
       print(length);
     }
-
-    var uri = Uri.parse("http://ec2-3-217-210-251.compute-1.amazonaws.com:9874/flowers");
+    //http://ec2-3-217-210-251.compute-1.amazonaws.com:9874/leaves
+    var uri = Uri.parse("http://192.168.1.2:9874/flowers");
     if (kDebugMode) {
       print("connection established.");
     }

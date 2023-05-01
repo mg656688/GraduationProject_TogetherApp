@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:project_x/const/constant.dart';
 import 'package:project_x/screens/plantingGuide/my_garden_screen.dart';
 import 'package:project_x/widgets/custom_bottom_nav_bar.dart';
 import '../../flutter_flow/flutter_flow_icon_button.dart';
@@ -10,31 +11,31 @@ import 'package:mongo_dart/mongo_dart.dart' as mongo;
 import '../../main.dart';
 
 
-class flowerInfoScreen extends StatefulWidget {
+class leavesInfoScreen extends StatefulWidget {
   final String prediction;
 
-  const flowerInfoScreen(this.prediction, {Key? key});
+  const leavesInfoScreen(this.prediction, {Key? key});
 
   @override
-  _flowerInfoScreenState createState() => _flowerInfoScreenState();
+  _leavesInfoScreenState createState() => _leavesInfoScreenState();
 }
 
-class _flowerInfoScreenState extends State<flowerInfoScreen> {
+class _leavesInfoScreenState extends State<leavesInfoScreen> {
 
   bool isLoading = true;
-  late String plantPhotoUrl;
   late String plantName;
+  late String commonName;
   late String info;
-  late List<String>? whenToPlant;
   late String lightNeed;
   late String lightDetails;
+  late String plantingRequirements;
   late String wateringNeed;
   late String wateringDetails;
-  late String fertlizeNeed;
-  late String fertlizeDetails;
-  late List<String>? diseases;
-  late List<String>? diseasesDetails;
-  late List<String>? treatment;
+  late String temperature;
+  late String temperatureDetails;
+  late String diseases;
+  late String plantPhotoUrl;
+
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final _unfocusNode = FocusNode();
@@ -57,7 +58,7 @@ class _flowerInfoScreenState extends State<flowerInfoScreen> {
         "mongodb+srv://admin:admin1234@together.cvq6ffb.mongodb.net/plantinfo?retryWrites=true&w=majority");
     await db.open();
 
-    var collection = await db.collection("Flowers");
+    var collection = await db.collection("Leaves");
     var plantData = await collection.findOne(
         mongo.where.eq("plant_name", prediction));
     db.close();
@@ -65,19 +66,17 @@ class _flowerInfoScreenState extends State<flowerInfoScreen> {
       print(plantData);
     }
     setState(() {
-      plantPhotoUrl = plantData?['plant_photo_url'] as String;
       plantName = plantData?['plant_name'] as String;
+      commonName = plantData?['common_name'] as String;
       info = plantData?['about_info'] as String;
-      // whenToPlant = plantData?['when_to_plant']?.cast<String>();
       lightNeed = plantData?['light_need'] as String;
-      lightDetails = plantData?['light_details'] as String;
+      plantingRequirements = plantData?['planting_requirements'] as String;
       wateringNeed = plantData?['watering_need'] as String;
       wateringDetails = plantData?['watering_details'] as String;
-      fertlizeNeed = plantData?['fertilizing_need'] as String;
-      fertlizeDetails = plantData?['fertilizing_details'] as String;
-      // diseases = plantData?['diseases'];
-      // diseasesDetails = plantData?['disease_info'];
-      // treatment = plantData?['treatment'];
+      temperature = plantData?['temperature'] as String;
+      temperatureDetails = plantData?['temperature_details'] as String;
+      diseases = plantData?['diseases'];
+      plantPhotoUrl = plantData?['plant_photo_url'] as String;
       isLoading = false;
     });
   }
@@ -158,26 +157,39 @@ class _flowerInfoScreenState extends State<flowerInfoScreen> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(16.0),
+                      padding: const EdgeInsets.all(3.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
-                              Align(
-                                alignment: AlignmentDirectional(0, 0),
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(130, 10, 0, 10),
-                                  child: Text(
-                                    plantName,
-                                    textAlign: TextAlign.center,
-                                    style: FlutterFlowTheme.of(context).bodyText1.override(
-                                      fontFamily: 'Poppins',
-                                      color: Color(0xFF19311C),
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.w800,
-                                    ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.symmetric(horizontal: 45),
+                                child: Text(
+                                  plantName,
+                                  textAlign: TextAlign.center,
+                                  style: FlutterFlowTheme.of(context).bodyText1.override(
+                                    fontFamily: 'Poppins',
+                                    color: Color(0xFF19311C),
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.w800,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(20, 20, 0, 0),
+                                child: Text(
+                                  'About',
+                                  style: FlutterFlowTheme.of(context).bodyText1.override(
+                                    fontFamily: 'Poppins',
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
                               ),
@@ -189,11 +201,23 @@ class _flowerInfoScreenState extends State<flowerInfoScreen> {
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
                                 child: Text(
-                                  'About',
+                                  'Common Name',
+                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                    fontFamily: 'Poppins',
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(25, 0, 0, 0),
+                                child: Text(
+                                  commonName,
                                   style: FlutterFlowTheme.of(context).bodyText1.override(
                                     fontFamily: 'Poppins',
+                                    color:kPrimaryColor,
                                     fontSize: 20,
-                                    fontWeight: FontWeight.bold,
+                                    fontWeight: FontWeight.w800,
                                   ),
                                 ),
                               ),
@@ -217,13 +241,11 @@ class _flowerInfoScreenState extends State<flowerInfoScreen> {
                           Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
-                              Align(
-                                alignment: AlignmentDirectional(0, 0),
+                              Flexible(
                                 child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(15, 10, 0, 10),
+                                  padding: const EdgeInsets.only(left: 18.0, top: 15),
                                   child: Text(
                                     'How to care for $plantName',
-                                    textAlign: TextAlign.center,
                                     style: FlutterFlowTheme.of(context).bodyText1.override(
                                       fontFamily: 'Poppins',
                                       fontSize: 20,
@@ -267,7 +289,7 @@ class _flowerInfoScreenState extends State<flowerInfoScreen> {
                                       ),
                                       Padding(
                                         padding:
-                                        EdgeInsetsDirectional.fromSTEB(10, 10, 0, 0),
+                                        EdgeInsetsDirectional.fromSTEB(12, 10, 0, 0),
                                         child: Text(
                                           lightNeed,
                                           style: FlutterFlowTheme.of(context)
@@ -276,21 +298,6 @@ class _flowerInfoScreenState extends State<flowerInfoScreen> {
                                             fontFamily: 'Poppins',
                                             fontSize: 15,
                                             fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Expanded(
-                                        child: Padding(
-                                          padding:
-                                          EdgeInsetsDirectional.fromSTEB(10, 0, 10, 10),
-                                          child: Text(
-                                            lightDetails,
-                                            style: FlutterFlowTheme.of(context).bodyText1,
                                           ),
                                         ),
                                       ),
@@ -353,7 +360,7 @@ class _flowerInfoScreenState extends State<flowerInfoScreen> {
                                         padding:
                                         EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                                         child: Text(
-                                          'Fertilizing  ',
+                                          'Temperature ',
                                           style: FlutterFlowTheme.of(context)
                                               .bodyText1
                                               .override(
@@ -364,13 +371,16 @@ class _flowerInfoScreenState extends State<flowerInfoScreen> {
                                           ),
                                         ),
                                       ),
-                                      Text(
-                                        fertlizeNeed,
-                                        style:
-                                        FlutterFlowTheme.of(context).bodyText1.override(
-                                          fontFamily: 'Poppins',
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold,
+                                      Padding(
+                                        padding: const EdgeInsets.all(5.0),
+                                        child: Text(
+                                          temperature,
+                                          style:
+                                          FlutterFlowTheme.of(context).bodyText1.override(
+                                            fontFamily: 'Poppins',
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -383,7 +393,7 @@ class _flowerInfoScreenState extends State<flowerInfoScreen> {
                                           padding:
                                           EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
                                           child: Text(
-                                            fertlizeDetails,
+                                            temperatureDetails,
                                             textAlign: TextAlign.justify,
                                             style: FlutterFlowTheme.of(context).bodyText1,
                                           ),

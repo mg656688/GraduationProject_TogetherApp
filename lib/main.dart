@@ -60,7 +60,7 @@ class MyApp extends StatelessWidget {
           duration: 4000,
           splash:
               Image.asset("assets/images/splash.png", fit: BoxFit.scaleDown),
-          nextScreen: user == null ? OnboardingScreen() : customNavBar(),
+          nextScreen: user == null ? OnboardingScreen() : customNavBar(selectedIndex: 0),
           backgroundColor: Colors.white,
           splashIconSize: double.maxFinite,
           splashTransition: SplashTransition.fadeTransition,

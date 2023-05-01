@@ -66,7 +66,7 @@ class _CommentScreenState extends State<CommentScreen> {
             Navigator.pushReplacement(
                 context,
                 PageTransition(
-                    child:   customNavBar(),
+                    child:   customNavBar(selectedIndex: 0),
                     type: PageTransitionType.bottomToTop));
             },
         ),
