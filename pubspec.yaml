@@ -64,7 +64,7 @@ dependencies:
   flutter_riverpod: ^2.3.4
   firebase_storage: ^11.1.1
   sliver_header_delegate: ^0.0.1
-
+  flutter_point_tab_bar: ^0.2.0
 
 dev_dependencies:
   flutter_test:

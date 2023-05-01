@@ -124,6 +124,33 @@ class _plantingGuideScreenState extends State<plantingGuideScreen> {
                               sub: 'Identify your plants from its leaves !',
                               image: 'assets/images/img_leave.png',)
                         ),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 10, top: 10, bottom: 10, left: 15),
+                          child: Text(
+                            "Do you have a seedlings and don't know what is it ?",
+                            style: FlutterFlowTheme
+                                .of(context)
+                                .title2
+                                .override(
+                              fontFamily: 'Poppins',
+                              color: Colors.black,
+                              fontSize: 22,
+                            ),
+                          ),
+                        ),
+                        GestureDetector(
+                            onTap: () {
+                              Navigator.pushReplacement(
+                                  context,
+                                  PageTransition(
+                                      child: const leaves(),
+                                      type: PageTransitionType.bottomToTop));
+                            },
+                            child: PlantingGuideCard(size: size * 2.5,
+                              plantName: 'Seedlings\n',
+                              sub: 'Identify your suspicious seedlings !',
+                              image: 'assets/images/img_seed.png',)
+                        ),
                       ],
                     ),
                   ],

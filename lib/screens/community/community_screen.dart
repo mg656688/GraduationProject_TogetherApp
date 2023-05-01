@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:project_x/flutter_flow/flutter_flow_theme.dart';
 import 'package:project_x/models/post_model.dart';
 import 'package:project_x/models/user_model.dart';
 import 'package:project_x/widgets/community/post_item.dart';
@@ -46,7 +47,12 @@ class _CommunityScreenState extends State<CommunityScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Together'),
+        title: Text(
+        'Together',
+            style: FlutterFlowTheme.of(context).title2.override(
+              fontFamily: 'Poppins',
+              color: Colors.white,
+              fontSize: 22,)),
         centerTitle: true,
         backgroundColor: const Color.fromRGBO(48, 64, 34, 100),
       ),

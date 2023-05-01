@@ -1,18 +1,21 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:project_x/flutter_flow/flutter_flow_theme.dart';
 
-class AcivementScreen extends StatefulWidget {
-  const AcivementScreen({Key? key}) : super(key: key);
+class achievementScreen extends StatefulWidget {
+  const achievementScreen({Key? key}) : super(key: key);
 
   @override
-  State<AcivementScreen> createState() => _AcivementScreenState();
+  State<achievementScreen> createState() => _achievementScreenState();
 }
 
-class _AcivementScreenState extends State<AcivementScreen> {
+class _achievementScreenState extends State<achievementScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Text("ACHIVEMENTS"),
+      body: Center(
+          child: Container(
+              child: Text(style: FlutterFlowTheme.of(context).bodyText2
+                  ,"ACHIEVEMENTS"))),
     );
   }
 }

@@ -25,11 +25,24 @@ class addPostScreen extends StatefulWidget {
 class _addPostScreenState extends State<addPostScreen> {
   final _formKey = GlobalKey<FormState>();
   final _contentController = TextEditingController();
+  bool _isButtonDisabled = true;
+
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final _firestore = FirebaseFirestore.instance;
   XFile? image;
   final ImagePicker picker = ImagePicker();
 
+  @override
+  void initState() {
+    super.initState();
+    _contentController.addListener(_checkInput);
+  }
+
+  void _checkInput() {
+    setState(() {
+      _isButtonDisabled = _contentController.text.isEmpty;
+    });
+  }
 
   @override
   void dispose() {
@@ -178,8 +191,6 @@ class _addPostScreenState extends State<addPostScreen> {
     List<String> words = input.split(' ');
     wordCount = words.length;
     fontSize = (wordCount > 10) ? 18 : 24;
-    print(wordCount);
-    print(fontSize);
 
     return Scaffold(
       appBar: AppBar(
@@ -215,7 +226,7 @@ class _addPostScreenState extends State<addPostScreen> {
                     ),
                     backgroundColor: const Color(0xff304022),
                   ),
-                  onPressed: _submitForm,
+                  onPressed: _isButtonDisabled ? null : _submitForm,
                   child:  Text(
                     'Post',
                     style: FlutterFlowTheme.of(context).title1.override(
@@ -235,20 +246,19 @@ class _addPostScreenState extends State<addPostScreen> {
         child: Form(
           key: _formKey,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ListTile(
                 leading: CircleAvatar(
-                  backgroundImage: NetworkImage(widget.user.photoURL ?? 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80'),
+                  backgroundImage: NetworkImage(widget.user.photoURL ?? ''),
                   radius: 30.0,
                 ),
-
                 title: Text(
                     widget.user.displayName as String,
                     style: FlutterFlowTheme.of(context).title1),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 12),
+                padding: EdgeInsetsDirectional.symmetric(horizontal: 6,vertical: 12),
                 child: TextFormField(
                   controller: _contentController,
                   obscureText: false,

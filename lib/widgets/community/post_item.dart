@@ -33,8 +33,6 @@ class _PostItemState extends State<PostItem> with TickerProviderStateMixin {
       _isLiked = true;
     }
     _likesCount = widget.post.likedBy.length;
-    print(widget.post.Id);
-    print(_isLiked);
   }
 
   void _toggleLike() {

@@ -1,11 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_point_tab_bar/pointTabIndicator.dart';
+import 'package:project_x/screens/achivement.dart';
 import 'package:project_x/screens/profile_screen.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../widgets/custom_bottom_nav_bar.dart';
-import 'achivement.dart';
 
 class TestProfileScreen extends StatefulWidget {
   const TestProfileScreen({Key? key}) : super(key: key);
@@ -34,7 +33,7 @@ class _TestProfileScreenState extends State<TestProfileScreen> with SingleTicker
             Navigator.pushReplacement(
                 context,
                 PageTransition(
-                    child: customNavBar(), type: PageTransitionType.bottomToTop));},),
+                    child: customNavBar(selectedIndex: 0), type: PageTransitionType.bottomToTop));},),
         bottom: TabBar(
           tabs: tabList.map((item) {
             return Tab(
@@ -57,7 +56,7 @@ class _TestProfileScreenState extends State<TestProfileScreen> with SingleTicker
         controller: _tabController,
         children: [
           profileScreen(),
-          AcivementScreen(),
+          achievementScreen(),
         ],
       ),
       );
