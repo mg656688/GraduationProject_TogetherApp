@@ -1,16 +1,13 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:project_x/const/constant.dart';
 import 'package:project_x/flutter_flow/flutter_flow_theme.dart';
 import 'package:project_x/screens/plantingGuide/flowers_screen.dart';
 import 'package:project_x/screens/plantingGuide/leaves_screen.dart';
 import 'package:project_x/screens/plantingGuide/my_garden_screen.dart';
+import 'package:project_x/screens/plantingGuide/seedlings_screen.dart';
 import 'package:project_x/widgets/planting_guide_card.dart';
-
 import '../../main.dart';
-import '../../widgets/custom_bottom_nav_bar.dart';
 
 class plantingGuideScreen extends StatefulWidget {
   const plantingGuideScreen({super.key});
@@ -125,9 +122,9 @@ class _plantingGuideScreenState extends State<plantingGuideScreen> {
                               image: 'assets/images/img_leave.png',)
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(right: 10, top: 10, bottom: 10, left: 15),
+                          padding: const EdgeInsets.only(right: 60, top: 10, bottom: 10),
                           child: Text(
-                            "Do you have a seedlings and don't know what is it ?",
+                            "Is it a Seedling or a Weed? ",
                             style: FlutterFlowTheme
                                 .of(context)
                                 .title2
@@ -143,7 +140,7 @@ class _plantingGuideScreenState extends State<plantingGuideScreen> {
                               Navigator.pushReplacement(
                                   context,
                                   PageTransition(
-                                      child: const leaves(),
+                                      child: const seedlings(),
                                       type: PageTransitionType.bottomToTop));
                             },
                             child: PlantingGuideCard(size: size * 2.5,

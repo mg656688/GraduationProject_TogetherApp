@@ -1,29 +1,31 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:async/async.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-import 'package:page_transition/page_transition.dart';
 import 'package:path/path.dart';
 import 'package:mongo_dart/mongo_dart.dart' as mongo;
-import 'package:project_x/flutter_flow/flutter_flow_icon_button.dart';
-import 'package:project_x/flutter_flow/flutter_flow_theme.dart';
-import 'package:project_x/screens/plantingGuide/flowers_info_screen.dart';
+import 'package:project_x/main.dart';
+import 'package:project_x/screens/plantingGuide/my_garden_screen.dart';
 import 'package:project_x/widgets/custom_bottom_nav_bar.dart';
+import '../../flutter_flow/flutter_flow_icon_button.dart';
+import '../../flutter_flow/flutter_flow_theme.dart';
+import '../../flutter_flow/flutter_flow_util.dart';
 
 
-class flowers extends StatefulWidget {
-  const flowers({super.key});
+class seedlings extends StatefulWidget {
+  const seedlings({super.key});
 
   @override
-  _flowersState createState() => _flowersState();
+  _seedlingsState createState() => _seedlingsState();
 }
 
-class _flowersState extends State<flowers> {
+class _seedlingsState extends State<seedlings> {
 
+  late String prediction = '';
   XFile? image;
   final ImagePicker picker = ImagePicker();
-  late String prediction = '';
   bool isLoading = false;
 
 
@@ -46,7 +48,7 @@ class _flowersState extends State<flowers> {
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
             title: const Text('Please choose media to select'),
             content: SizedBox(
-              height: MediaQuery.of(context).size.height / 6,
+              height: MediaQuery.of(context).size.height / 3,
               child: Column(
                 children: [
                   ElevatedButton(
@@ -62,7 +64,7 @@ class _flowersState extends State<flowers> {
                       Navigator.pop(context);
                       getImage(ImageSource.gallery);
                     },
-                    child:  Row(
+                    child: Row(
                       children: [
                         Icon(Icons.image),
                         Text('From Gallery'),
@@ -118,14 +120,14 @@ class _flowersState extends State<flowers> {
             Navigator.pushReplacement(
                 context,
                 PageTransition(
-                    child: customNavBar(selectedIndex: 1),
+                    child:  customNavBar(selectedIndex: 1),
                     type: PageTransitionType.bottomToTop));
           },
         ),
         title: Padding(
           padding: const EdgeInsetsDirectional.fromSTEB(0, 3, 0, 0),
           child: Text(
-            'Flowers',
+            'Seedlings',
             style: FlutterFlowTheme.of(context).title2.override(
               fontFamily: 'Poppins',
               color: Colors.black,
@@ -153,6 +155,7 @@ class _flowersState extends State<flowers> {
                 myAlert();
               },
               child: const Text('Scan your plant'),
+
             ),
             const SizedBox(
               height: 10,
@@ -174,7 +177,7 @@ class _flowersState extends State<flowers> {
               ),
             )
                 : const Text(
-              "",
+              "Select Image",
               style: TextStyle(fontSize: 20),
             ),
             Row(
@@ -220,42 +223,22 @@ class _flowersState extends State<flowers> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(122,0, 0, 2),
+                    padding: const EdgeInsetsDirectional.fromSTEB(150,0, 0, 2),
                     child: prediction == ''
-                        ? const Center()
+                        ? const Center(
+                    )
                         : Visibility(
                       visible: prediction != null,
-                      child: Column(
-                        children: [
-                          Center(
-                            child: Text(
-                              prediction,
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                fontFamily: 'Poppins',
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20,
-                              ),
-                            ),
+                      child: Center(
+                        child: Text(
+                          textAlign: TextAlign.center, // center align the text
+                          prediction,
+                          style: const TextStyle(
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
                           ),
-                          ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              minimumSize: const Size(150, 40),
-                              backgroundColor: FlutterFlowTheme.of(context).primaryColor,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                            ),
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => flowerInfoScreen(prediction)),
-                              );
-                            },
-                            child: const Text('Learn More'),
-                          ),
-                        ],
+                        ),
                       ),
                     ),
                   ),
@@ -266,16 +249,19 @@ class _flowersState extends State<flowers> {
       ),
     );
   }
-  uploadImageToServer(XFile imageFile)async {
+
+  uploadImageToServer(XFile imageFile)async
+  {
     if (kDebugMode) {
       print("attempting to connect to server......");
     }
-    var stream = http.ByteStream(Stream.castFrom(imageFile.openRead()));
+    var stream = http.ByteStream(DelegatingStream.typed(imageFile.openRead()));
     var length = await imageFile.length();
     if (kDebugMode) {
       print(length);
     }
-    var uri = Uri.parse("http://ec2-3-217-210-251.compute-1.amazonaws.com:9874/flowers");
+
+    var uri = Uri.parse('http://ec2-3-217-210-251.compute-1.amazonaws.com:9874/seedlings');
     if (kDebugMode) {
       print("connection established.");
     }
@@ -285,27 +271,21 @@ class _flowersState extends State<flowers> {
 
     request.files.add(multipartFile);
     var response = await request.send();
-
-    // Check the response status code
-    if (response.statusCode == 200) {
-      print('Image uploaded successfully!');
-
-      var db = await mongo.Db.create("mongodb+srv://admin:admin1234@together.cvq6ffb.mongodb.net/seedlings?retryWrites=true&w=majority");
-      await db.open();
-
-      var collection = await db.collection("flower");
-      var latestPrediction = await collection.findOne(
-          mongo.where.eq('file_name', basename(imageFile.path)).sortBy('upload_time'));
-      db.close();
-
-      setState(() {
-        prediction = latestPrediction?['prediction'] as String;
-      });
-
-    } else {
-      print('Image upload failed with status code ${response.statusCode}');
+    if (kDebugMode) {
+      print(response.statusCode);
     }
 
+    var db = await mongo.Db.create("mongodb+srv://admin:admin1234@together.cvq6ffb.mongodb.net/seedlings?retryWrites=true&w=majority");
+    await db.open();
+
+    var collection = await db.collection("seedlings");
+    var latestPrediction = await collection.findOne(
+        mongo.where.eq('file_name', basename(imageFile.path)).sortBy('upload_time'));
+    db.close();
+
+    setState(() {
+      prediction = latestPrediction?['prediction'] as String;
+    });
 
   }
 

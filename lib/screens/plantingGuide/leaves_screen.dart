@@ -7,7 +7,6 @@ import 'package:http/http.dart' as http;
 import 'package:path/path.dart';
 import 'package:mongo_dart/mongo_dart.dart' as mongo;
 import 'package:project_x/screens/plantingGuide/leaves_info_screen.dart';
-import 'package:project_x/screens/plantingGuide/planting_guide_screen.dart';
 import 'package:project_x/widgets/custom_bottom_nav_bar.dart';
 import '../../flutter_flow/flutter_flow_icon_button.dart';
 import '../../flutter_flow/flutter_flow_theme.dart';
@@ -98,7 +97,6 @@ class _leavesState extends State<leaves> {
 
   @override
   Widget build(BuildContext context) {
-    final ButtonStyle style = ElevatedButton.styleFrom(textStyle: const TextStyle(fontSize: 20));
 
     return Scaffold(
       appBar: AppBar(
@@ -281,8 +279,7 @@ class _leavesState extends State<leaves> {
     if (kDebugMode) {
       print(length);
     }
-   //http://ec2-3-217-210-251.compute-1.amazonaws.com:9874/leaves
-    var uri = Uri.parse('http://192.168.1.2:9874/leaves');
+    var uri = Uri.parse('http://ec2-3-217-210-251.compute-1.amazonaws.com:9874/leaves');
     if (kDebugMode) {
       print("connection established.");
     }
@@ -292,21 +289,28 @@ class _leavesState extends State<leaves> {
 
     request.files.add(multipartFile);
     var response = await request.send();
-    if (kDebugMode) {
-      print(response.statusCode);
+    // Check the response status code
+    if (response.statusCode == 200) {
+      print('Image uploaded successfully!');
+
+      var db = await mongo.Db.create("mongodb+srv://admin:admin1234@together.cvq6ffb.mongodb.net/seedlings?retryWrites=true&w=majority");
+      await db.open();
+
+      var collection = await db.collection("leaf");
+      var latestPrediction = await collection.findOne(
+          mongo.where.eq('file_name', basename(imageFile.path)).sortBy('upload_time'));
+      db.close();
+
+      setState(() {
+        prediction = latestPrediction?['prediction'] as String;
+
+      });
+    } else {
+      print('Image upload failed with status code ${response.statusCode}');
     }
 
-    var db = await mongo.Db.create("mongodb+srv://admin:admin1234@together.cvq6ffb.mongodb.net/seedlings?retryWrites=true&w=majority");
-    await db.open();
 
-    var collection = await db.collection("leaf");
-    var latestPrediction = await collection.findOne(
-        mongo.where.eq('file_name', basename(imageFile.path)).sortBy('upload_time'));
-    db.close();
 
-    setState(() {
-      prediction = latestPrediction?['prediction'] as String;
-    });
 
   }
 
