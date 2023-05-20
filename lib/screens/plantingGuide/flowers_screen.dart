@@ -108,18 +108,19 @@ class _flowersState extends State<flowers> {
           borderRadius: 30,
           borderWidth: 1,
           buttonSize: 60,
-          fillColor: FlutterFlowTheme.of(context).primaryBackground,
           icon: const Icon(
             Icons.arrow_back_rounded,
             color: Colors.black,
             size: 30,
           ),
           onPressed: () {
-            Navigator.pushReplacement(
-                context,
-                PageTransition(
-                    child: customNavBar(selectedIndex: 1),
-                    type: PageTransitionType.bottomToTop));
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => CustomNavBar(selectedIndex: 1),
+              ),
+                  (route) => false,
+            );
           },
         ),
         title: Padding(

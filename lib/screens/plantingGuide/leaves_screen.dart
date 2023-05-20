@@ -114,11 +114,13 @@ class _leavesState extends State<leaves> {
             size: 30,
           ),
           onPressed: () {
-            Navigator.pushReplacement(
-                context,
-                PageTransition(
-                    child:  customNavBar(selectedIndex: 1),
-                    type: PageTransitionType.bottomToTop));
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => CustomNavBar(selectedIndex: 1),
+              ),
+                  (route) => false,
+            );
           },
         ),
         title: Padding(

@@ -76,9 +76,10 @@ class _plantingGuideScreenState extends State<plantingGuideScreen> {
                                     child: MyGardenPage(userId: user!.uid),
                                     type: PageTransitionType.bottomToTop));
                           },
-                          child: PlantingGuideCard(size: size * 2.5,
+                          child: PlantingGuideCard(
+                            size: size * 2.5,
                             plantName: 'My Garden\n',
-                            sub: 'Check your Plants',
+                            sub: 'See your Plants',
                             image: 'assets/images/garden.png',)
                         ),
                         Padding(
@@ -103,7 +104,8 @@ class _plantingGuideScreenState extends State<plantingGuideScreen> {
                                       child: flowers(),
                                       type: PageTransitionType.bottomToTop));
                             },
-                            child: PlantingGuideCard(size: size * 2.5,
+                            child: PlantingGuideCard(
+                              size: size * 2.5,
                               plantName: 'Flowers\n',
                               sub: 'Just scan your flowers !',
                               image: 'assets/images/img_flower.png',)
@@ -116,38 +118,39 @@ class _plantingGuideScreenState extends State<plantingGuideScreen> {
                                       child: const leaves(),
                                       type: PageTransitionType.bottomToTop));
                             },
-                            child: PlantingGuideCard(size: size * 2.5,
+                            child: PlantingGuideCard(
+                              size: size * 2.5,
                               plantName: 'Leaves\n',
                               sub: 'Identify your plants from its leaves !',
                               image: 'assets/images/img_leave.png',)
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 60, top: 10, bottom: 10),
-                          child: Text(
-                            "Is it a Seedling or a Weed? ",
-                            style: FlutterFlowTheme
-                                .of(context)
-                                .title2
-                                .override(
-                              fontFamily: 'Poppins',
-                              color: Colors.black,
-                              fontSize: 22,
-                            ),
-                          ),
-                        ),
-                        GestureDetector(
-                            onTap: () {
-                              Navigator.pushReplacement(
-                                  context,
-                                  PageTransition(
-                                      child: const seedlings(),
-                                      type: PageTransitionType.bottomToTop));
-                            },
-                            child: PlantingGuideCard(size: size * 2.5,
-                              plantName: 'Seedlings\n',
-                              sub: 'Identify your suspicious seedlings !',
-                              image: 'assets/images/img_seed.png',)
-                        ),
+                        // Padding(
+                        //   padding: const EdgeInsets.only(right: 60, top: 10, bottom: 10),
+                        //   child: Text(
+                        //     "Is it a Seedling or a Weed? ",
+                        //     style: FlutterFlowTheme
+                        //         .of(context)
+                        //         .title2
+                        //         .override(
+                        //       fontFamily: 'Poppins',
+                        //       color: Colors.black,
+                        //       fontSize: 22,
+                        //     ),
+                        //   ),
+                        // ),
+                        // GestureDetector(
+                        //     onTap: () {
+                        //       Navigator.pushReplacement(
+                        //           context,
+                        //           PageTransition(
+                        //               child: const seedlings(),
+                        //               type: PageTransitionType.bottomToTop));
+                        //     },
+                        //     child: PlantingGuideCard(size: size * 2.5,
+                        //       plantName: 'Seedlings\n',
+                        //       sub: 'Identify your suspicious seedlings !',
+                        //       image: 'assets/images/img_seed.png',)
+                        // ),
                       ],
                     ),
                   ],

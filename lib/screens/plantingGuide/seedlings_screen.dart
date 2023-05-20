@@ -6,8 +6,6 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart';
 import 'package:mongo_dart/mongo_dart.dart' as mongo;
-import 'package:project_x/main.dart';
-import 'package:project_x/screens/plantingGuide/my_garden_screen.dart';
 import 'package:project_x/widgets/custom_bottom_nav_bar.dart';
 import '../../flutter_flow/flutter_flow_icon_button.dart';
 import '../../flutter_flow/flutter_flow_theme.dart';
@@ -120,7 +118,7 @@ class _seedlingsState extends State<seedlings> {
             Navigator.pushReplacement(
                 context,
                 PageTransition(
-                    child:  customNavBar(selectedIndex: 1),
+                    child:  CustomNavBar(selectedIndex: 1),
                     type: PageTransitionType.bottomToTop));
           },
         ),
