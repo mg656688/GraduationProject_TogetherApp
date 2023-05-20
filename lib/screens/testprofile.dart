@@ -33,7 +33,7 @@ class _TestProfileScreenState extends State<TestProfileScreen> with SingleTicker
             Navigator.pushReplacement(
                 context,
                 PageTransition(
-                    child: customNavBar(selectedIndex: 0), type: PageTransitionType.bottomToTop));},),
+                    child: CustomNavBar(selectedIndex: 0), type: PageTransitionType.bottomToTop));},),
         bottom: TabBar(
           tabs: tabList.map((item) {
             return Tab(

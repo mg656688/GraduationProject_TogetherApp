@@ -12,6 +12,7 @@ import 'package:project_x/models/user_model.dart';
 import '../../flutter_flow/flutter_flow_util.dart';
 import '../../widgets/PhotoPickerWidget.dart';
 import '../../widgets/custom_bottom_nav_bar.dart';
+import 'community_screen.dart';
 
 class addPostScreen extends StatefulWidget {
   const addPostScreen({super.key, required this.user});
@@ -176,10 +177,15 @@ class _addPostScreenState extends State<addPostScreen> {
         });
         _contentController.clear();
       }
-      Navigator.pushReplacement(
-          context,
-          PageTransition(
-              child: customNavBar(selectedIndex: 0), type: PageTransitionType.bottomToTop));
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (context) => CustomNavBar(selectedIndex: 0),
+        ),
+            (route) => false,
+      );
+
+
     }
   }
 
@@ -196,17 +202,7 @@ class _addPostScreenState extends State<addPostScreen> {
       appBar: AppBar(
         actions: [
           Padding(
-            padding: const EdgeInsets.only(left: 5.0),
-            child: FlutterFlowIconButton(
-              icon : Icon(Icons.arrow_back),
-              onPressed: () {
-                Navigator.pushReplacement(
-                  context,
-                  PageTransition(
-                      child: customNavBar(selectedIndex: 0), type: PageTransitionType.bottomToTop));},),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 15.0),
+            padding: const EdgeInsets.only(left: 20 , top: 15.0),
             child: Text(style: TextStyle(
                 fontSize: 24,
                 fontFamily: 'Poppins',
@@ -268,7 +264,6 @@ class _addPostScreenState extends State<addPostScreen> {
                     }
                     return null;
                   },
-                  autofocus: true,
                   onChanged: (value) {
                       setState(() {});
                   },

@@ -70,7 +70,20 @@ class _CommunityScreenState extends State<CommunityScreen> {
                     return Center(child: Text('Error: ${snapshot.error}'));
                   }
                   if (!snapshot.hasData || snapshot.data!.docs.length == 0) {
-                    return Center(child: Text('No posts available.'));
+                    return Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            CircularProgressIndicator(
+                              color: Color.fromRGBO(48, 64, 34, 100),
+                            ),
+                            SizedBox(height: 10.0,),
+                            Text(
+                                'Loading posts'
+                            ),
+                          ],
+                        )
+                    );
                   }
                   return ListView.builder(
                     itemCount: snapshot.data!.docs.length,

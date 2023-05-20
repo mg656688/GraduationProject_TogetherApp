@@ -11,16 +11,16 @@ import 'package:project_x/screens/profile_screen.dart';
 import 'package:project_x/screens/test_profile_screen.dart';
 
 import '../screens/pollutionReport/pollution_report_screen.dart';
-
-class customNavBar extends StatefulWidget {
+class CustomNavBar extends StatefulWidget {
   final int selectedIndex;
-  const customNavBar({Key? key, required this.selectedIndex, }) : super(key: key);
+
+  const CustomNavBar({Key? key, required this.selectedIndex}) : super(key: key);
 
   @override
-  State<customNavBar> createState() => _customNavBarState();
+  State<CustomNavBar> createState() => _CustomNavBarState();
 }
 
-class _customNavBarState extends State<customNavBar> {
+class _CustomNavBarState extends State<CustomNavBar> {
   int _currentIndex = 0;
   late final List<Widget> screens;
 
@@ -35,21 +35,22 @@ class _customNavBarState extends State<customNavBar> {
       addPostScreen(user: user),
       pollutionReport(),
       profileScreen(),
-      // TestProfileScreen(),
     ];
   }
 
   void onTabTapped(int index) {
     setState(() {
       _currentIndex = index;
-      print(_currentIndex);
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: screens[_currentIndex],
+      body: IndexedStack(
+        index: _currentIndex,
+        children: screens,
+      ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         unselectedLabelStyle: FlutterFlowTheme.of(context).bodyMedium,
@@ -57,29 +58,46 @@ class _customNavBarState extends State<customNavBar> {
         selectedItemColor: kPrimaryColor,
         currentIndex: _currentIndex,
         onTap: onTabTapped,
-        items: [
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.home,
-                size: 35, color: Color.fromRGBO(48, 64, 34, 100)),
-            label: "Home",
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.home,
+              size: 35,
+              color: Color.fromRGBO(48, 64, 34, 100),
+            ),
+            label: 'Home',
           ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.local_florist_outlined,
-                  size: 35, color: Color.fromRGBO(48, 64, 34, 100)),
-              label: "Planting"),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.add_circle_rounded,
-                size: 35, color: Color.fromRGBO(48, 64, 34, 100)),
-            label: "Post",
+            icon: Icon(
+              Icons.local_florist_outlined,
+              size: 35,
+              color: Color.fromRGBO(48, 64, 34, 100),
+            ),
+            label: 'Planting',
           ),
-          const BottomNavigationBarItem(
-              icon: Icon(Icons.report,
-                  size: 35, color: Color.fromRGBO(48, 64, 34, 100)),
-              label: "Report"),
-          const BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.profile_circled,
-                color: Color.fromRGBO(48, 64, 34, 100), size: 35),
-            label: "Profile",
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.add_circle_rounded,
+              size: 35,
+              color: Color.fromRGBO(48, 64, 34, 100),
+            ),
+            label: 'Post',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.report,
+              size: 35,
+              color: Color.fromRGBO(48, 64, 34, 100),
+            ),
+            label: 'Report',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              CupertinoIcons.profile_circled,
+              color: Color.fromRGBO(48, 64, 34, 100),
+              size: 35,
+            ),
+            label: 'Profile',
           ),
         ],
       ),

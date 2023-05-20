@@ -6,9 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project_x/const/constant.dart';
 import 'package:project_x/flutter_flow/flutter_flow_icon_button.dart';
 import 'package:project_x/flutter_flow/flutter_flow_theme.dart';
-import 'package:project_x/flutter_flow/flutter_flow_util.dart';
 import 'package:project_x/models/post_model.dart';
-import 'package:project_x/screens/community/community_screen.dart';
 import 'package:project_x/widgets/community/comment_item.dart';
 import 'package:project_x/widgets/custom_bottom_nav_bar.dart';
 import '../../models/comment_model.dart';
@@ -56,18 +54,19 @@ class _CommentScreenState extends State<CommentScreen> {
           borderRadius: 30,
           borderWidth: 1,
           buttonSize: 60,
-          fillColor: FlutterFlowTheme.of(context).primaryBackground,
           icon: const Icon(
             Icons.arrow_back_rounded,
             color: Colors.black,
             size: 30,
           ),
           onPressed: () {
-            Navigator.pushReplacement(
-                context,
-                PageTransition(
-                    child:   customNavBar(selectedIndex: 0),
-                    type: PageTransitionType.bottomToTop));
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => CustomNavBar(selectedIndex: 0),
+              ),
+                  (route) => false,
+            );
             },
         ),
         title: Padding(

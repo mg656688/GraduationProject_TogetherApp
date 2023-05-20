@@ -7,6 +7,7 @@ import 'package:project_x/const/constants.dart';
 import 'package:project_x/screens/community/community_screen.dart';
 import 'package:project_x/screens/forgot_password_screen.dart';
 import 'package:project_x/screens/sign_up_screen.dart';
+import 'package:project_x/widgets/custom_bottom_nav_bar.dart';
 
 
 class SignIn extends StatefulWidget {
@@ -41,7 +42,7 @@ class _SignInState extends State<SignIn> {
               child: Text("Something wrong"),
             );
           } else if (snapshot.hasData) {
-            return  CommunityScreen();
+            return  CustomNavBar(selectedIndex: 0);
           } else {
             return Login();
           }
