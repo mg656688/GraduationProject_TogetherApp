@@ -8,7 +8,7 @@ import 'package:project_x/screens/community/add_post_screen.dart';
 import 'package:project_x/screens/community/community_screen.dart';
 import 'package:project_x/screens/plantingGuide/my_garden_screen.dart';
 import 'package:project_x/screens/plantingGuide/planting_guide_screen.dart';
-import 'package:project_x/screens/profile_screen.dart';
+import 'package:project_x/screens/profile/profile_screen.dart';
 import 'package:project_x/screens/pollutionReport/pollution_report_screen.dart';
 import 'package:project_x/screens/onboarding_screen.dart';
 import 'package:project_x/screens/sign_up_screen.dart';
@@ -70,7 +70,7 @@ class MyApp extends StatelessWidget {
             splash:
             Image.asset("assets/images/splash.png", fit: BoxFit.scaleDown),
             nextScreen: FirebaseAuth.instance.currentUser == null
-                ? OnboardingScreen()
+                ? OnBoardingScreen()
                 : CustomNavBar(selectedIndex: 0),
             backgroundColor: Colors.white,
             splashIconSize: double.maxFinite,

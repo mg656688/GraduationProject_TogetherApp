@@ -6,6 +6,8 @@ import 'package:page_transition/page_transition.dart';
 import 'package:project_x/const/constants.dart';
 import 'package:project_x/screens/sign_in_screen.dart';
 
+import '../const/constant.dart';
+
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -51,7 +53,7 @@ class _SignUpState extends State<SignUp> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image.asset('assets/images/signup.png'),
+              Center(child: Image.asset('assets/images/Sign up-bro 1.png')),
               const Text(
                 'Sign Up',
                 style: TextStyle(
@@ -138,17 +140,18 @@ class _SignUpState extends State<SignUp> {
                 child: Container(
                   width: size.width,
                   decoration: BoxDecoration(
-                    color: Constants.primaryColor,
+                    color: kSearchColor,
                     borderRadius: BorderRadius.circular(10),
                   ),
                   padding:
-                  const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+                  const EdgeInsets.symmetric(horizontal: 16, vertical: 15),
                   child: const Center(
                     child: Text(
-                      'Sign Up',
+                      'Sign In',
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 18.0,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20.0,
                       ),
                     ),
                   ),
@@ -175,23 +178,24 @@ class _SignUpState extends State<SignUp> {
                   await signUpWithGoogle();
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xff296e48),
+                  backgroundColor: kSearchColor,
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(
-                      height: 40,
+                      height: 50,
                       child: Padding(
                         padding: EdgeInsets.fromLTRB(5, 10, 10, 10),
                         child:Image.asset('assets/images/google.png'),
                       ),
                     ),
+                    SizedBox(width: 15,),
                     Text(
-                      'Sign Up with Google',
+                      'Sign in with Google',
                       style: TextStyle(
                         color: Constants.whiteColor,
-                        fontSize: 18.0,
+                        fontSize: 20.0,
                       ),
                     ),
                   ],
@@ -220,7 +224,7 @@ class _SignUpState extends State<SignUp> {
                       TextSpan(
                         text: 'Login',
                         style: TextStyle(
-                          color: Constants.primaryColor,
+                          color: kSearchColor,
                         ),
                       ),
                     ]),

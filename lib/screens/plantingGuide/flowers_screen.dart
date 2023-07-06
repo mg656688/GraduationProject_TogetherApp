@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -276,7 +277,9 @@ class _flowersState extends State<flowers> {
     if (kDebugMode) {
       print(length);
     }
-    var uri = Uri.parse("http://ec2-3-217-210-251.compute-1.amazonaws.com:9874/flowers");
+    // var uri = Uri.parse("http://ec2-3-217-210-251.compute-1.amazonaws.com:9874/flowers");
+    var uri = Uri.parse("http://192.168.1.2:9874/flowers");
+
     if (kDebugMode) {
       print("connection established.");
     }
@@ -311,5 +314,3 @@ class _flowersState extends State<flowers> {
   }
 
 }
-
-

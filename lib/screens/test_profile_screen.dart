@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_point_tab_bar/pointTabIndicator.dart';
-import 'package:project_x/screens/profile_screen.dart';
+import 'package:project_x/screens/profile/profile_screen.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../widgets/custom_bottom_nav_bar.dart';

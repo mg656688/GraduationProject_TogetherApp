@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -91,7 +92,7 @@ class _PostItemState extends State<PostItem> with TickerProviderStateMixin {
         children: <Widget>[
           ListTile(
             leading: CircleAvatar(
-              backgroundImage: NetworkImage(widget.user.avatarUrl),
+              backgroundImage: CachedNetworkImageProvider(widget.user.avatarUrl),
               radius: 25.0,
             ),
 
@@ -207,10 +208,14 @@ String timeAgoSinceDate(DateTime dateTime) {
   final now = DateTime.now();
   final difference = now.difference(dateTime);
 
-  if (difference.inDays > 2) {
+  if (difference.inDays > 2 && difference.inDays < 30) {
     return '${difference.inDays} days ago';
   } else if (difference.inDays == 2) {
     return '2 days ago';
+  } else if (difference.inDays > 30) {
+    return '1 month ago';
+  } else if (difference.inDays > 60) {
+    return '2 month ago';
   } else if (difference.inDays == 1) {
     return 'Yesterday';
   } else if (difference.inHours >= 2) {

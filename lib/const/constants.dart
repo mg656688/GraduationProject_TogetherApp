@@ -11,7 +11,7 @@ class Constants {
   static var titleOne="The Planet needs us ! ";
   static var descriptionOne="Build the habit and start planting and join the community of environment lovers";
   static var titleTwo="Start Planting ! ";
-  static var descriptionTwo="It’s never been easier, with the help \n of our AI  powered planting guidance, you will nail it !";
+  static var descriptionTwo="It’s never been easier, with the help of \n our AI powered planting guidance, you will nail it !";
   static var titleThree="Farming Services ";
   static var descriptionThree="Providing a smart, efficient solutions to monitor your crop’s health and achieve the ultimate yield productivity";
 

@@ -7,7 +7,7 @@ import 'package:project_x/flutter_flow/flutter_flow_theme.dart';
 import 'package:project_x/screens/community/add_post_screen.dart';
 import 'package:project_x/screens/community/community_screen.dart';
 import 'package:project_x/screens/plantingGuide/planting_guide_screen.dart';
-import 'package:project_x/screens/profile_screen.dart';
+import 'package:project_x/screens/profile/profile_screen.dart';
 import 'package:project_x/screens/test_profile_screen.dart';
 
 import '../screens/pollutionReport/pollution_report_screen.dart';

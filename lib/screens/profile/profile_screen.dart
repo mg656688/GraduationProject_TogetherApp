@@ -6,8 +6,8 @@ import 'package:project_x/const/constant.dart';
 import 'package:project_x/flutter_flow/flutter_flow_theme.dart';
 import 'package:project_x/models/post_model.dart';
 import 'package:project_x/models/user_model.dart';
-import 'package:project_x/screens/achivement.dart';
-import 'package:project_x/screens/community/edit_profile_screen.dart';
+import 'package:project_x/screens/profile/achivement.dart';
+import 'package:project_x/screens/profile/edit_profile_screen.dart';
 import 'package:project_x/widgets/community/post_item.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 
@@ -265,8 +265,9 @@ class _profileScreenState extends State<profileScreen>  with SingleTickerProvide
           body: TabBarView(
             controller: _tabController,
             children: [
+              // Posts
               StreamBuilder<QuerySnapshot>(
-                stream: _postsRef
+                stream: _postsRef.orderBy('timestamp', descending: true)
                     .where('user.id', isEqualTo: _user!.uid)
                     .snapshots(),
                 builder: (BuildContext context,
@@ -295,6 +296,7 @@ class _profileScreenState extends State<profileScreen>  with SingleTickerProvide
                   );
                 },
               ),
+              // Achievements
               achievementScreen(),
             ],
           ),

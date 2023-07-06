@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:project_x/const/constant.dart';
 import 'package:project_x/const/constants.dart';
 import 'package:project_x/screens/sign_in_screen.dart';
 
-
-
-class OnboardingScreen extends StatefulWidget {
-  const OnboardingScreen({Key? key}) : super(key: key);
+class OnBoardingScreen extends StatefulWidget {
+  const OnBoardingScreen({Key? key}) : super(key: key);
 
   @override
-  State<OnboardingScreen> createState() => _OnboardingScreenState();
+  State<OnBoardingScreen> createState() => _OnBoardingScreenState();
 }
 
-class _OnboardingScreenState extends State<OnboardingScreen> {
+class _OnBoardingScreenState extends State<OnBoardingScreen> {
   final PageController _pageController = PageController(initialPage: 0);
   int currentIndex = 0;
 
@@ -28,14 +27,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             child: InkWell(
               onTap: () {
                 Navigator.pushReplacement(
-                    context, MaterialPageRoute(builder: (_) =>  SignIn()));
-              }, //to login screen. We will update later
+                    context, MaterialPageRoute(builder: (_) => SignIn()));
+              },
               child: const Text(
                 'Skip',
                 style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.w400,
+                  color: kSearchColor,
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.w800,
                 ),
               ),
             ),
@@ -63,11 +62,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 title: Constants.titleTwo,
                 description: Constants.descriptionTwo,
               ),
-              createPage(
-                image: 'assets/images/walkthrough_3.jpg',
-                title: Constants.titleThree,
-                description: Constants.descriptionThree,
-              ),
             ],
           ),
           Positioned(
@@ -93,19 +87,19 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         }
                       } else {
                         Navigator.pushReplacement(context,
-                            MaterialPageRoute(builder: (_) =>  SignIn()));
+                            MaterialPageRoute(builder: (_) => SignIn()));
                       }
                     });
                   },
                   icon: const Icon(
                     Icons.arrow_forward_ios,
                     size: 24,
-                    color: Colors.white,
+                    color: kSearchColor,
                   )),
               padding: const EdgeInsets.all(4),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: Constants.primaryColor,
+                color: kPrimaryColor,
               ),
             ),
           ),
@@ -124,7 +118,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       width: isActive ? 20 : 8,
       margin: const EdgeInsets.only(right: 5.0),
       decoration: BoxDecoration(
-        color: Constants.primaryColor,
+        color: kSearchColor,
         borderRadius: BorderRadius.circular(5),
       ),
     );
@@ -134,7 +128,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   List<Widget> _buildIndicator() {
     List<Widget> indicators = [];
 
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 2; i++) {
       if (currentIndex == i) {
         indicators.add(_indicator(true));
       } else {
@@ -161,29 +155,31 @@ class createPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Stack(
-      children: [
-      Image.asset(image,
-      fit: BoxFit.fitHeight,
-      height: size.height,
-      width: size.width,
+    return Stack(children: [
+      Image.asset(
+        image,
+        fit: BoxFit.fitHeight,
+        height: size.height,
+        width: size.width,
       ),
-      Card(
-      margin: EdgeInsets.fromLTRB(0,360,0,0),
+      Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+              topRight: Radius.circular(40.0),
+              topLeft: Radius.circular(40.0)),
+          color: Colors.white,
+        ),
+        margin: EdgeInsets.fromLTRB(0, 360, 0, 0),
         child: Padding(
           padding: const EdgeInsets.only(right: 15, left: 15),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const SizedBox(
-                height: 1,
-              ),
               Text(
                 title,
-                textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: Constants.primaryColor,
+                  color: kSearchColor,
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
                 ),
@@ -201,13 +197,12 @@ class createPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(
-                height: 20,
+                height: 80,
               ),
             ],
           ),
         ),
       ),
-      ]
-    );
+    ]);
   }
 }

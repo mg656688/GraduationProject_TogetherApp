@@ -53,206 +53,197 @@ class _SignInState extends State<SignIn> {
 
   Widget Login() {
     Size size = MediaQuery.of(context).size;
-    return  Stack(
-        children: [
-          Image.asset(
-            'assets/images/sign_in.jpg',
-            fit: BoxFit.cover,
-            height: size.height,
-            width: size.width,
-          ),
-          SingleChildScrollView(
-            child: Form(
-              key: formkey,
-              child: Card(
-                margin: EdgeInsets.fromLTRB(0,220,0,0),
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-
-                    children: [
-                      const SizedBox(
-                        height: 20,
+    return  SingleChildScrollView(
+      child: Form(
+        key: formkey,
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Center(child: Image.asset('assets/images/Sign in illustration.png')),
+              // const Text(
+              //   'Sign In',
+              //   style: TextStyle(
+              //     fontSize: 35.0,
+              //     fontWeight: FontWeight.w700,
+              //   ),
+              // ),
+              const SizedBox(
+                height: 30,
+              ),
+              buildEmail(),
+              const SizedBox(
+                height: 15,
+              ),
+              buildPassword(),
+              const SizedBox(
+                height: 20,
+              ),
+              GestureDetector(
+                onTap: () {
+                  if (formkey.currentState!.validate()) {
+                    SignIn();
+                  }
+                },
+                child: Container(
+                  width: size.width,
+                  decoration: BoxDecoration(
+                    color: kSearchColor,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  padding:
+                  const EdgeInsets.symmetric(horizontal: 16, vertical: 15),
+                  child: const Center(
+                    child: Text(
+                      'Sign In',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20.0,
                       ),
-                      const Text(
-                        'Sign In',
-                        style: TextStyle(
-                          fontSize: 35.0,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      buildemail(),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      buildPassword(),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          if (formkey.currentState!.validate()) {
-                            SignIn();
-                          }
-                        },
-                        child: Container(
-                          width: size.width,
-                          decoration: BoxDecoration(
-                            color: Constants.primaryColor,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          padding:
-                          const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-                          child: const Center(
-                            child: Text(
-                              'Sign In',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18.0,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.pushReplacement(
-                              context,
-                              PageTransition(
-                                  child: const ForgotPassword(),
-                                  type: PageTransitionType.bottomToTop));
-                        },
-                        child: Center(
-                          child: Text.rich(
-                            TextSpan(children: [
-                              TextSpan(
-                                text: 'Forgot Password? ',
-                                style: TextStyle(
-                                  color: Constants.blackColor,
-                                ),
-                              ),
-                              TextSpan(
-                                text: 'Reset Here',
-                                style: TextStyle(
-                                  color: Constants.primaryColor,
-                                ),
-                              ),
-                            ]),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        children: const [
-                          Expanded(child: Divider()),
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 10),
-                            child: Text('OR'),
-                          ),
-                          Expanded(child: Divider()),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      ElevatedButton(
-                        onPressed: () async {
-                          await signInWithGoogle();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xff296e48),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              height: 40,
-                              child: Padding(
-                                padding: EdgeInsets.fromLTRB(5, 10, 10, 10),
-                                child:Image.asset('assets/images/google.png'),
-                              ),
-                            ),
-                            Text(
-                              'Sign In with Google',
-                              style: TextStyle(
-                                color: Constants.whiteColor,
-                                fontSize: 18.0,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.pushReplacement(
-                              context,
-                              PageTransition(
-                                  child: const SignUp(), type: PageTransitionType.bottomToTop));
-                        },
-                        child: Center(
-                          child: Text.rich(
-                            TextSpan(children: [
-                              TextSpan(
-                                text: 'New to Together? ',
-                                style: TextStyle(
-                                  color: Constants.blackColor,
-                                ),
-                              ),
-                              TextSpan(
-                                text: 'Register',
-                                style: TextStyle(
-                                  color: Constants.primaryColor,
-                                ),
-                              ),
-                            ]),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      )
-                    ],
+                    ),
                   ),
                 ),
               ),
-            ),
+              const SizedBox(
+                height: 10,
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushReplacement(
+                      context,
+                      PageTransition(
+                          child: const ForgotPassword(),
+                          type: PageTransitionType.bottomToTop));
+                },
+                child: Center(
+                  child: Text.rich(
+                    TextSpan(
+                        children: [
+                          TextSpan(
+                            text: 'Forgot Password? ',
+                            style: TextStyle(
+                              color: Constants.blackColor,
+                            ),
+                          ),
+                          TextSpan(
+                            text: 'Reset Here',
+                            style: TextStyle(
+                              color: kSearchColor,
+                            ),
+                          ),
+                        ]
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Row(
+                children: const [
+                  Expanded(child: Divider()),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: Text('OR'),
+                  ),
+                  Expanded(child: Divider()),
+                ],
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  await signInWithGoogle();
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: kSearchColor
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: 45,
+                      child: Padding(
+                        padding: EdgeInsets.fromLTRB(5, 10, 10, 10),
+                        child:Image.asset('assets/images/google.png'),
+                      ),
+                    ),
+                    SizedBox(width: 15,),
+                    Text(
+                      'Sign in with Google',
+                      style: TextStyle(
+                        color: Constants.whiteColor,
+                        fontSize: 20.0,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushReplacement(
+                      context,
+                      PageTransition(
+                          child: const SignUp(), type: PageTransitionType.bottomToTop));
+                },
+                child: Center(
+                  child: Text.rich(
+                    TextSpan(children: [
+                      TextSpan(
+                        text: 'New to Together? ',
+                        style: TextStyle(
+                          color: Constants.blackColor,
+                        ),
+                      ),
+                      TextSpan(
+                        text: 'Register',
+                        style: TextStyle(
+                          color: kSearchColor,
+                        ),
+                      ),
+                    ]),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              )
+            ],
           ),
-        ]
+        ),
+      ),
     );
   }
 
-  Widget buildemail() {
+  Widget buildEmail() {
     return Padding(
       padding: const EdgeInsets.all(0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            "Email",
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 15,
-              fontWeight: FontWeight.bold,
+          Padding(
+            padding: const EdgeInsets.only(left: 3.0, bottom: 2.0),
+            child: const Text(
+              "Email",
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
           Container(
             alignment: Alignment.centerLeft,
             height: 60,
             decoration: BoxDecoration(
-                color: const Color(0xffE3E3E3),
+                color: const Color(0xffb3bcab),
                 borderRadius: BorderRadius.circular(10),
                 boxShadow: const [
                   BoxShadow(
@@ -277,13 +268,15 @@ class _SignInState extends State<SignIn> {
               ),
               decoration: const InputDecoration(
                 border: InputBorder.none,
-                contentPadding: EdgeInsets.only(left: 10, top: 16),
+                contentPadding: EdgeInsets.only(left: 10, top: 14),
                 prefixIcon: Icon(
                   Icons.email,
-                  color: Color(0xff4c5166),
+                  color: kSearchColor,
                 ),
                 hintText: "Email Address",
-                helperStyle: TextStyle(color: Colors.black38),
+                helperStyle: TextStyle(
+                    color: Colors.black38
+                ),
               ),
             ),
           ),
@@ -298,19 +291,22 @@ class _SignInState extends State<SignIn> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            "Password",
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 15,
-              fontWeight: FontWeight.bold,
+          Padding(
+            padding: const EdgeInsets.only(left: 3.0, bottom: 2.0),
+            child: const Text(
+              "Password",
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
           Container(
             alignment: Alignment.centerLeft,
             height: 60,
             decoration: BoxDecoration(
-                color: const Color(0xffE3E3E3),
+                color: kPrimaryColor,
                 borderRadius: BorderRadius.circular(10),
                 boxShadow: const [
                   BoxShadow(
@@ -338,12 +334,10 @@ class _SignInState extends State<SignIn> {
               ),
               decoration: InputDecoration(
                 border: InputBorder.none,
-                contentPadding: const EdgeInsets.only(
-                  left: 10,
-                ),
+                contentPadding: const EdgeInsets.only(left: 10, bottom: 10),
                 prefixIcon: const Icon(
                   Icons.key_outlined,
-                  color: Color(0xff4c5166),
+                  color: kSearchColor,
                 ),
                 suffix: IconButton(
                     onPressed: () {

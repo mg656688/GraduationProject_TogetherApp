@@ -20,7 +20,7 @@ class pollutionReport extends StatefulWidget {
 
 class _pollutionReportState extends State<pollutionReport> {
   XFile? image;
-
+  bool IsSent = false;
   final ImagePicker picker = ImagePicker();
 
   //we can upload image from camera or from gallery based on parameter
@@ -202,18 +202,22 @@ class _pollutionReportState extends State<pollutionReport> {
                       ),
                       backgroundColor: FlutterFlowTheme.of(context).primaryColor,
                     ),
-                    onPressed: image != null ? () {
+                    onPressed: image != null ?  () {
                       uploadImageToServer(image!);
-                      Fluttertoast.showToast(
-                          msg: "Submitted Successfully",
-                          toastLength: Toast.LENGTH_SHORT,
-                          gravity: ToastGravity.CENTER,
-                          timeInSecForIosWeb: 1,
-                          backgroundColor:
-                          FlutterFlowTheme.of(context).primaryColor,
-                          textColor: Colors.white,
-                          fontSize: 16.0);
-                    } : null,
+                      if (IsSent) {
+                        Fluttertoast.showToast(
+                            msg: "Submitted Successfully",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.CENTER,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor:
+                            FlutterFlowTheme
+                                .of(context)
+                                .primaryColor,
+                            textColor: Colors.white,
+                            fontSize: 16.0);
+                      }
+                      } : null,
                     // Disable the button if image is null
                     // Set onPressed to null when image is null
                     child: const Text(
@@ -244,8 +248,9 @@ class _pollutionReportState extends State<pollutionReport> {
       print(length);
     }
 
-    var uri = Uri.parse(
-        'http://ec2-3-217-210-251.compute-1.amazonaws.com:9874/report');
+    // var uri = Uri.parse(
+    //     'http://ec2-3-217-210-251.compute-1.amazonaws.com:9874/report');
+    var uri = Uri.parse('http://192.168.1.2:9874/report');
     if (kDebugMode) {
       print("connection established.");
     }
@@ -271,9 +276,38 @@ class _pollutionReportState extends State<pollutionReport> {
       'file': basename(imageFile.path),
     });
     final response = await http.post(uri, headers: headers, body: body);
-    if (kDebugMode) {
-      print(response.statusCode);
+    if (response.statusCode == 200) {
+      print('Report submitted successfully !');
+      IsSent = true;
     }
   }
-  
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

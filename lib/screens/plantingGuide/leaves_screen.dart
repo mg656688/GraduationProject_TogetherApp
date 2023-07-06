@@ -281,7 +281,9 @@ class _leavesState extends State<leaves> {
     if (kDebugMode) {
       print(length);
     }
-    var uri = Uri.parse('http://ec2-3-217-210-251.compute-1.amazonaws.com:9874/leaves');
+    // var uri = Uri.parse('http://ec2-3-217-210-251.compute-1.amazonaws.com:9874/leaves');
+    var uri = Uri.parse('http://192.168.1.2:9874/leaves');
+
     if (kDebugMode) {
       print("connection established.");
     }
